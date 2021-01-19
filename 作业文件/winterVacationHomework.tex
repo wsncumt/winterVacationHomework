@@ -1,7 +1,13 @@
-\documentclass{article}
+\documentclass[30pt]{article}
 \usepackage[space,fancyhdr,fntef]{ctexcap}
+\usepackage{fontspec}
+\fontspec{宋体}
+\setmainfont{Times New Roman}
+%\fontsize{50pt}{50pt}\selectfont
+\renewcommand{\rmdefault}{ptm}
 \usepackage[namelimits,sumlimits,nointlimits]{amsmath}
 \usepackage[bottom=30mm,top=30mm,left=25mm,right=25mm,centering]{geometry}
+\usepackage{color}
 \usepackage{xcolor}
 \usepackage{arydshln}%234页，虚线表格宏包
 \pagestyle{fancy} \fancyhf{}
@@ -9,18 +15,112 @@
 %\usepackage{parskip}
 %\usepackage{indentfirst}
 \usepackage{graphicx}%插图宏包，参见手册318页
-
+\definecolor{dkgreen}{RGB}{106,135,89}
+\definecolor{dkblue}{RGB}{103,150,163}
+\definecolor{wgray}{RGB}{248,248,248}
+\usepackage{listings}
+\lstset{language=Java,
+%lablestep=1,
+%lablesep=5pt,
+%lablestyle=\tiny,
+%tablesize=4,
+basicstyle=\ttfamily\small,
+keywordstyle=\color{orange},
+commentstyle=\color{gray},
+stringstyle=\color{dkgreen},
+numberstyle=\tiny,
+numbersep=8pt,
+frame=single,%topline.bottomline,lines,single,leftline
+identifierstyle=\color{dkblue},
+numbers=left,
+stepnumber=1
+}
+\usepackage[xetex,colorlinks]{hyperref}%394页  \href{网址}{文本}
+\hypersetup{urlcolor=blue}
+%\linebreak[2]%换行，152页
 \usepackage{fancybox}%盒子宏包55页
 \begin{document}
 
-\newcounter{num} \renewcommand{\thenum}{\arabic{num}.} \newcommand{\num}{\refstepcounter{num}\text{\thenum}}
+\newcommand{\dm}[1]{\colorbox{wgray}{\lstinline^#1^}}
 
-\newenvironment{jie}{\kaishu\zihao{-5}\color{blue}{\noindent\em 解：}\par}{\hfill $\diamondsuit$\par}
+\newcounter{num}[section] \renewcommand{\thenum}{\arabic{num}.} \newcommand{\num}{\refstepcounter{num}\text{\thenum}}
+%\newlength{\mylen}
+%\settowidth{\mylen}{Tips}
+%\settoheight{\myheight}{T}
+\newenvironment{tips}{\kaishu\zihao{-6}\color{blue}{\noindent\rule[-3pt]{\textwidth}{0.5pt}\par \em \noindent {\zihao{-5} \textcolor[rgb]{1.00,0.00,0.00}{Tips}}}\par}{\\ \rule[3mm]{\textwidth}{0.5pt}\par}
 
 \newenvironment{zhengming}{\kaishu\zihao{-5}\color{blue}{\noindent\em 证明：}\par}{\hfill $\diamondsuit$\par}
 
-1
-\newpage
-11111111111111111111111111111
+%\begin{lstlisting}
+%1
+%\end{lstlisting}
 
+%
+%\newlength{\mylen}
+%\settowidth{\mylen}{For iasasasaasasaasdadadsadasd =10}
+%\makebox[0pt][l]%55页
+%{
+%\color{wgray}\rule[0pt]{\mylen}{5pt}%59页
+%}
+
+
+%\lstinline[参数]符号 源程序 符号。
+\CTEXsetup[name={Day~,}]{section}
+
+%\href{https://www.baidu.com/?tn=40020637_11_oem_dg}{百度}
+
+%\rule[1.3mm]{1cm}{1pt}tips\rule[2.5mm]{1cm}{1pt}
+%
+%
+%\begin{tips}
+%123
+%\end{tips}
+
+
+\section{~}%day1
+\num 如果\dm{int x=20, y=5},则语句\dm{System.out.println(x+y + ""+(x+y)+y);}的输出结果是（\hphantom{~~~~~}）。
+
+A.\dm{2530} \hspace{2.5cm} B.\dm{55} \hspace{2.5cm} C.\dm{2052055}\hspace{2.5cm} D.\dm{25255}
+
+\num 在Java中，在同一包内，类Cat里面有个公共方法sleep()，该方法前有static修饰，则可以直接用Cat.sleep()。（\hphantom{~~~~~}）
+
+A.\dm{正确} \hspace{2.5cm} B.\dm{错误} \hfill \hphantom{C.\dm{205255}}\hfill\hphantom{D.\dm{25255}}\hfill \hphantom{~}
+
+\num 给定以下方法声明，调用执行\dm{mystery(1234)}的输出结果是\hphantom{~~~~~}）。
+
+\begin{lstlisting}[numbers=none]
+//precondition: x >= 0
+public void mystery (int x) {
+    System.out.print(x % 10);
+    if ((x / 10) != 0){
+        mystery(x / 10);
+    }
+    System.out.print(x % 10);
+}
+\end{lstlisting}
+
+A.\dm{1441} \hspace{2.42cm} B.\dm{43211234} \hspace{1.5cm} C.\dm{3443}\hspace{3cm} D.\dm{12344321}
+
+\num 实现函数\dm{ToLowerCase()}，该函数接收一个字符串参数\dm{str},并将该字符串中的大写字母转换成小写字母，之后返回新的字符串。\href{https://leetcode-cn.com/problems/to-lower-case/%20--with-chrome-plus-plus%20--disable-features=RendererCodeIntegrity,FlashDeprecationWarning/}{转换成小写字母}
+
+\begin{lstlisting}
+class Solution {
+    public String toLowerCase(String str) {
+        
+    }
+}
+\end{lstlisting}
+
+\num 给定一个数组，将数组中的元素向右移动k个位置，其中k是非负数。\href{https://leetcode-cn.com/problems/rotate-array/%20--with-chrome-plus-plus%20--disable-features=RendererCodeIntegrity,FlashDeprecationWarning/} {旋转数组}
+
+\begin{lstlisting}
+class Solution {
+    public void rotate(int[] nums, int k) {
+
+    }
+}
+\end{lstlisting}
+\newpage
+\section{~}%day2
+\num
 \end{document}
