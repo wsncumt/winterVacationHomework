@@ -59,7 +59,7 @@ showstringspaces=true
 %\settoheight{\myheight}{T}
 \newenvironment{tips}{\kaishu\zihao{-6}\color{blue}{\noindent\rule[-3pt]{\textwidth}{0.5pt}\par \em \noindent {\zihao{-5} \textcolor[rgb]{1.00,0.00,0.00}{Tips}}}\par}{\\ \rule[3mm]{\textwidth}{0.5pt}\par}
 
-\newenvironment{zhengming}{\kaishu\zihao{-5}\color{blue}{\noindent\em 证明：}\par}{\hfill $\diamondsuit$\par}
+\newenvironment{jie}{\kaishu\zihao{-5}\color{blue}{\noindent\em 解：}\par}{\hfill $\diamondsuit$\par}
 
 %\begin{lstlisting}
 %1
@@ -88,17 +88,27 @@ showstringspaces=true
 
 
 \section{}%day1
-\num 如果\dm{int x=20, y=5},则语句\dm{System.out.println(x+y + "" +(x+y)+y);}的输出结果是（\hphantom{~~~~~}）。
+\num 如果\dm{int x=20, y=5},则语句\dm{System.out.println(x+y + "" +(x+y)+y);}的输出结果是（~~~\textcolor[rgb]{1.00,0.00,0.00}{D}~~~）。
 
 A.\dm{2530} \hspace{2.5cm} B.\dm{55} \hspace{2.5cm} C.\dm{2052055}\hspace{2.5cm} D.\dm{25255}
 
-\num 在Java中，在同一包内，类Cat里面有个公共方法sleep()，该方法前有static修饰，则可以直接用Cat.sleep()。（\hphantom{~~~~~}）
+\begin{jie}
+先计算\dm{()}里的：x + y = 25.
+
+从左向右计算：\dm{x + y} 为\dm{25}，遇到字符串将数字转为字符串，然后将后边的续接到前边：25255.
+\end{jie}
+
+\num 在Java中，在同一包内，类Cat里面有个公共方法sleep()，该方法前有static修饰，则可以直接用Cat.sleep()。（~~~\textcolor[rgb]{1.00,0.00,0.00}{A}~~~）
 
 A.\dm{正确} \hspace{2.5cm} B.\dm{错误} \hfill \hphantom{C.\dm{205255}}\hfill\hphantom{D.\dm{25255}}\hfill \hphantom{~}
 
-\num 给定以下方法声明，调用执行\dm{mystery(1234)}的输出结果是（\hphantom{~~~~~}）。
+\begin{tips}
+用\dm{static}修饰的为类方法，类方法可由类名直接调用。
+\end{tips}
 
-\begin{lstlisting}[numbers=none]
+\num 给定以下方法声明，调用执行\dm{mystery(1234)}的输出结果是（~~~\textcolor[rgb]{1.00,0.00,0.00}{B}~~~）。
+
+\begin{lstlisting}
 //precondition: x >= 0
 public void mystery (int x) {
     System.out.print(x % 10);
@@ -111,36 +121,78 @@ public void mystery (int x) {
 
 A.\dm{1441} \hspace{2.42cm} B.\dm{43211234} \hspace{1.5cm} C.\dm{3443}\hspace{3cm} D.\dm{12344321}
 
+\begin{jie}
+x\%10 = 1234 \% 10 = \textcolor[rgb]{1.00,0.00,0.00}{4}
+\end{jie}
+\begin{tips}
+该方法的第3$\sim$6行的功能是实现逆序打印。
+\end{tips}
+
 \num 实现函数\dm{ToLowerCase()}，该函数接收一个字符串参数\dm{str},并将该字符串中的大写字母转换成小写字母，之后返回新的字符串。\href{https://leetcode-cn.com/problems/to-lower-case/\%20--with-chrome-plus-plus\%20--disable-features=RendererCodeIntegrity,FlashDeprecationWarning/}{OJ链接-转换成小写字母}
 
 \begin{lstlisting}[title= 转换成小写字母]
 class Solution {
     public String toLowerCase(String str) {
-
+        return str.toLowerCase();
     }
 }
 \end{lstlisting}
+
+\begin{tips}
+转大写：\dm{str.toUpperCase()}
+
+转小写：\dm{str.toLowerCase()}
+\end{tips}
 
 \num 给定一个数组，将数组中的元素向右移动k个位置，其中k是非负数。\href{https://leetcode-cn.com/problems/rotate-array/\%20--with-chrome-plus-plus\%20--disable-features=RendererCodeIntegrity,FlashDeprecationWarning/} {OJ链接-旋转数组}
 
-\begin{lstlisting}
+\begin{lstlisting}[title = 旋转数组]
 class Solution {
     public void rotate(int[] nums, int k) {
+        k %= nums.length;
+        reverse(nums,0,nums.length-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k,nums.length-1);
 
+    }
+    public void reverse(int[] nums,int lo,int hi){
+        while(lo < hi){
+            int tmp = nums[lo];
+            nums[lo] = nums[hi];
+            nums[hi] = tmp;
+            lo++;
+            hi--;
+        }
     }
 }
 \end{lstlisting}
+
+\begin{tips}
+在C语言做过这个题。
+
+1.要先把旋转的位置除数组的长度取余，因为向右移动数组长度个位置（或其倍数）等于没有移动。
+
+2.把整个数组旋转得到新的数组。
+
+3.依次旋转数组的前\dm{k}个元素（\dm{0到k-1}），和后边剩余的元素。
+\end{tips}
 \newpage
 \section{}%day2
-\num 如果类的方法没有返回值，该方法的返回类型是（\hphantom{~~~~~}）。
+\num 如果类的方法没有返回值，该方法的返回类型是（~~~\textcolor[rgb]{1.00,0.00,0.00}{A}~~~）。
 
 A.\dm{void}\hfill B.\dm{null} \hfill C.\dm{abstract}\hfill D.\dm{default}
 
-\num \dm{Java Application(Java应用程序)}源程序文件编译后的字节码文件的拓展名是（\hphantom{~~~~~}）。
+\num \dm{Java Application(Java应用程序)}源程序文件编译后的字节码文件的拓展名是（~~~\textcolor[rgb]{1.00,0.00,0.00}{B}~~~）。
 
 A.\dm{java}\hfill B.\dm{class}\hfill C.\dm{exe}\hfill D.\dm{jar}
 
-\num 关于继承的描述正确的是（\hphantom{~~~~~}）。
+\begin{tips}
+Java源文件的拓展名：\dm{java}
+
+Java源文件编译后拓展名：\dm{class}
+\end{tips}
+
+\num 关于继承的描述正确的是（~~~\textcolor[rgb]{1.00,0.00,0.00}{C}~~~）。
 
 A.函数的出口应该尽可能少，最好只有一个出口
 
@@ -150,29 +202,105 @@ C.在函数实现中应该少使用全局变量
 
 D.函数的功能应该单一
 
+\begin{tips}
+A.函数应为每个逻辑分支提供出口。
+
+B.动态内存分配无法避免，应该及时回收空间和释放指针避免动态内存泄露。
+
+C.为保证封装性，尽量少用全局变量。
+
+D.函数可以根据不同的输入来实现相应的功能（重载）。
+\end{tips}
+
 \num 给定一个数组\dm{nums}和一个值\dm{val}，你需要原地移除所有数值等于\dm{val}的元素，返回移除后数组的新长度。不要使用额外的数组空间，你必须在原地修改输入数组并在使用$O(1)$额外空间的条件下完成。\href{https://leetcode-cn.com/problems/remove-element/\%20--with-chrome-plus-plus\%20--disable-features=RendererCodeIntegrity,FlashDeprecationWarning/} {OJ链接-移除元素}
 
-\begin{lstlisting}
+\begin{tips}
+1.边界情况：数组为空时，要返回0。
+
+分析：不考虑顺序，返回的为不含\dm{val}的前边一段，思路：把\dm{val}换到后边去。
+
+2.左指针\dm{lo}指向数组的左边，找\dm{val}，如果没找到\dm{val}，就把这个指针向右移动；
+
+3.右指针\dm{hi}指向数组的右边，\dm{val}就应该位于数组后边，所以如果值是\dm{val}，指针就左移。
+
+4.经过2、3步后，左指针指的是\dm{val}，右指针指的是非\dm{val},将这俩指针对应元素交换。
+
+5.左右指针重合时，数组就遍历完了。
+
+6.左指针的左边一定是不含\dm{val}的，其左边有\dm{lo}个元素，如果此时的左指针对应元素的值时\dm{val}，那就返回\dm{lo}，如果左指针对应元素的值不是\dm{lo}，就返回\dm{lo + 1}。
+\end{tips}
+
+\begin{lstlisting}[title = 移除元素]
 class Solution {
     public int removeElement(int[] nums, int val) {
-
+        if(nums.length == 0){
+            return 0;
+        }
+        int lo = 0;
+        int hi = nums.length - 1;
+        int len = 0;
+        while(lo < hi){
+            if(nums[lo] != val && lo < hi){
+                lo++;
+            }
+            if(nums[hi] == val && lo < hi){
+                hi--;
+            }
+            if(lo < hi){
+                int tmp = nums[lo];
+                nums[lo] = nums[hi];
+                nums[hi] = tmp;
+            }
+        }
+        if(nums[lo] == val){
+            return lo;
+        }
+        return lo + 1;
     }
 }
 \end{lstlisting}
 
 \num 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置，你可以假设数组中无重复元素。\href{https://leetcode-cn.com/problems/search-insert-position/\%20--with-chrome-plus-plus\%20--disable-features=RendererCodeIntegrity,FlashDeprecationWarning/} {OJ链接-搜索插入位置}
 
-\begin{lstlisting}
+\begin{tips}
+有序数组，采用二分查找。
+
+1.找到元素：返回元素的下标。
+
+2.如果数组中没有该元素。退出循环的前一次左指针、右指针、中间指针指向同一元素，若该元素小于目标值，即\dm{nums[mid] < target}，左指针指向中间指针的下一个元素，此时左指针在右指针的右边，退出循环。同时左指针指向的位置也是目标元素要插入的位置。
+
+3.若该元素大于目标值，即\dm{target < nums[mid]},右指针指向中间指针的前一个元素，右指针在左指针的左边，退出循环。左指针的左侧元素必定小于目标值，而左指针指向的元素大于目标值，目标值应该插入到左指针指向的位置处。
+
+4.综上，找到目标值就返回该目标值对应的下标，没找到该目标值就返回左指针指向的位置。
+\end{tips}
+
+\begin{lstlisting}[title = 搜索插入位置]
 class Solution {
     public int searchInsert(int[] nums, int target) {
-
+        if(nums.length == 0){
+            return 0;
+        }
+        int lo = 0;
+        int hi = nums.length - 1;
+        int mid = (lo + hi)/2;
+        while(lo <= hi){
+            mid = (lo + hi)/2;
+            if(nums[mid] < target){
+                lo = mid + 1;
+            }else if(target < nums[mid]){
+                hi = mid - 1;
+            }else{
+                return mid;
+            }
+        }
+        return lo;
     }
 }
 \end{lstlisting}
 
 \newpage
 \section{}%day3
-\num 以下代码的循环次数是（\hphantom{~~~~~}）。
+\num 以下代码的循环次数是（~~~\textcolor[rgb]{1.00,0.00,0.00}{D}~~~）。
 
 \begin{lstlisting}[numbers=none]
 public class Test {
@@ -189,9 +317,17 @@ public class Test {
 
 A.\dm{0}\hfill B.\dm{1}\hfill C.\dm{7}\hfill D.\dm{无限次}
 
-\num 下列选项中属于面向对象设计方法的主要特征是（\hphantom{~~~~~}）。
+\begin{jie}
+\dm{i}的初始值为奇数，循环中每次减2，退出条件为不等于0，奇数减2永远不会为0，即死循环。
+\end{jie}
+
+\num 下列选项中属于面向对象设计方法的主要特征是（~~~\textcolor[rgb]{1.00,0.00,0.00}{A}~~~）。
 
 A.继承\hfill B.自顶向下\hfill C.模块化\hfill D.逐步求精
+
+\begin{tips}
+面向对象最主要的几个特征：封装、继承、多态、抽象等。
+\end{tips}
 
 \num 下面的方法，当输入为$2$的时候返回值是多少（\hphantom{~~~~~}）。
 
