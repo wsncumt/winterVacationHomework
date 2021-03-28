@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.4.27)  15 FEB 2021 20:34
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/W32TeX) (preloaded format=xelatex 2020.4.27)  2 MAR 2021 15:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -995,11 +995,8 @@ LaTeX Info: Redefining \nameref on input line 56.
 \@outlinefile=\write4
 \openout4 = `answer-winterVacationHomework.out'.
 
-
-
-Package hyperref Warning: Rerun to get /PageLabels entry.
-
 \c@num=\count322
+
 
 Package ctex Warning: Command \CTEXsetup is deprecated.
 (ctex)                \ctexset { section = { name={Day~,} } } is set.
@@ -1110,38 +1107,44 @@ Overfull \hbox (43.08914pt too wide) in paragraph at lines 1368--1369
 [][][][]为 下 界，|  否 则 需 要 从[][][][][][]区
  []
 
-[28] [29] [30] [31] [32] [33] [34] [35] [36] [37]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1814.
- [38]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1814.
+[28] [29] [30] [31] [32] [33]
+Overfull \hbox (17.28896pt too wide) in paragraph at lines 1654--1655
+[]\TU/KaiTi(0)/m/n/6.52437 从 左 至 右 找 无 序 的 右 边 界：|  将 已 经 扫 描 过 的 最 大 元 素 记 为[]
+[][][][][]\TU/ptm/m/it/6.52437 , \TU/KaiTi(0)/m/n/6.52437 显 然 有 序 \TU/ptm/m/it/
+6.52437 2 \TU/KaiTi(0)/m/n/6.52437 的 所 有 元 素 都 应 该 大 于 等 于[][][][][][]，|  如 果 某
+ 个 元 素[][][][][][]，|  说 明[][][][][][]不
+ []
 
-(./answer-winterVacationHomework.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1814.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1814.
+[34] [35] [36] [37] [38] [39] [40] [41]
+Overfull \hbox (1.9943pt too wide) in paragraph at lines 1999--2000
+[]\TU/KaiTi(0)/m/n/6.52437 如 果[][][][][][]，|  这 个 位 置 可 以 匹 配 \TU/ptm/m/it/6.52
+437 0 \TU/KaiTi(0)/m/n/6.52437 到 若 干 个 字 符，| [][][][][][]从 其 前 一 个 状 态 转 移 来。| 
+ 其 前 一 个 状 态 包 括[][][][][][]
+ []
 
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2030.
+[42]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2030.
+ (./answer-winterVacationHomework.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 2030.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2030.
 
+Package rerunfilecheck Info: File `answer-winterVacationHomework.out' has not c
+hanged.
+(rerunfilecheck)             Checksum: 0DBAB831E3ECA6E88EC8A4759C738B23.
 
-Package rerunfilecheck Warning: File `answer-winterVacationHomework.out' has ch
-anged.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `answer-winterVacationHomework.out':
-
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E
-(rerunfilecheck)             After:  0DBAB831E3ECA6E88EC8A4759C738B23.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1814.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2030.
  ) 
 Here is how much of TeX's memory you used:
- 27476 strings out of 492922
- 558381 string characters out of 6136751
- 799742 words of memory out of 5000000
- 31235 multiletter control sequences out of 15000+600000
+ 27504 strings out of 492922
+ 558660 string characters out of 6136751
+ 840742 words of memory out of 5000000
+ 31263 multiletter control sequences out of 15000+600000
  537015 words of font info for 83 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 59i,12n,79p,889b,1777s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 59i,12n,79p,889b,1820s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on answer-winterVacationHomework.pdf (38 pages).
+Output written on answer-winterVacationHomework.pdf (42 pages).

@@ -1639,10 +1639,47 @@ D.编译错误
 \end{jie}
 
 \num 给你一个整数数组\dm{nums}，你需要找出一个\textbf{连续子数组}，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。请你找出符合题意的 最短 子数组，并输出它的长度。\href{https://leetcode-cn.com/problems/shortest-unsorted-continuous-subarray/} {OJ链接-最短无序连续子数组}
+
+\begin{tips}
+1.如果数组长度为0或长度为1，则数组一定有序。
+
+2.对于长度大于1的数组：
+
+符合题意的任意一个应该为：有序1 + 无序 + 有序2。
+
+升序排序，所以无序中的最大值不会超过有序2中的最小值，无序中的最小值不会小于有序1中的最大值。
+
+使用\dm{lo}表示无序的左边界，使用\dm{ri}表示无序的右边界。
+
+从左至右找无序的右边界：将已经扫描过的最大元素记为\dm{max},显然有序2的所有元素都应该大于等于\dm{max}，如果某个元素\dm{nums[i]<max}，说明\dm{nums[i]}不在有序2中，应该在无序中，把无序的右边界更新为\dm{i}。
+
+从右至左找左边界：与找右边界逻辑逻辑一致，将已经扫描过的最小元素记为\dm{min}，有序1的所有元素都应该小于等于\dm{min}，如果某个元素\dm{nums[j]>min}，说明\dm{nums[j]}不在有序1中，应该在无序中，把无序的左边界更新为\dm{j}。
+\end{tips}
+
 \begin{lstlisting}[title=最短无序连续子数组]
 class Solution {
     public int findUnsortedSubarray(int[] nums) {
+        if(nums.length == 0 || nums.length == 1 ){
+            return 0;
+        }
+        int lo = nums.length - 1;
+        int hi = 0;
+        int max = nums[0];
+        int min = nums[nums.length - 1];
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i] < max){
+                hi = i;
+            }else{
+                max = nums[i];
+            }
 
+            if(nums[nums.length - 1 - i] > min){
+                lo = nums.length - 1 - i;
+            }else{
+                min = nums[nums.length - 1 - i];
+            }
+        }
+        return hi - lo < 0 ? 0 : hi - lo + 1;
     }
 }
 \end{lstlisting}
@@ -1657,24 +1694,62 @@ class Solution {
   \item 给定逆波兰表达式总是有效的。换句话说，表达式总会得出有效数值且不存在除数为 0 的情况。
 \end{itemize}
 
+\begin{tips}
+使用题目给的提示：适合用栈操作运算：遇到数字则入栈；遇到算符则取出栈顶两个数字进行计算，并将结果压入栈中。
+\end{tips}
+
 \begin{lstlisting}[title=逆波兰表达式求值]
 class Solution {
-    public int evalRPN(String[] tokens) {
+    private boolean isNumber(String str){
+        return !"+".equals(str) && !"-".equals(str) && !"*".equals(str) && !"/".equals(str);
+    }
 
+    public int evalRPN(String[] tokens) {
+        Deque<Integer> stk = new ArrayDeque<>();
+        for(String str : tokens){
+            if(isNumber(str)){
+                stk.push(Integer.valueOf(str));
+                continue;
+            }
+            int n1 = stk.pop();
+            int n2 = stk.pop();
+            switch(str){
+                case "+":
+                    stk.push(n2 + n1);
+                    break;
+                case "-":
+                    stk.push(n2 - n1);
+                    break;
+                case "*":
+                    stk.push(n2 * n1);
+                    break;
+                case "/":
+                    stk.push(n2 / n1);
+                    break;
+            }
+
+        }
+        return stk.pop();
     }
 }
 \end{lstlisting}
 
 \newpage
 \section{}
-\num （\textbf{多选题}）关于\dm{Java}以下描述正确的有（\hphantom{~~~~~}）。
+\num （\textbf{多选题}）关于\dm{Java}以下描述正确的有（~~\textcolor[rgb]{1.00,0.00,0.00}{C}、\textcolor[rgb]{1.00,0.00,0.00}{D}~~）。
 
-A.\dm{Class}类是\dm{Object}类的超类\hfil  B.\dm{Object}类是一个\dm{final}类
+A.\dm{Class}类是\dm{Object}类的超类\hfill  B.\dm{Object}类是一个\dm{final}类
 
 C.\dm{String}类是一个\dm{final}类
 \hfill D.\dm{Class}类可以装载其它类
 
-\num （\textbf{多选题}）\dm{Java}中的集合类包括\dm{ArrayList}、\dm{LinkedList} 、\dm{HashMap}等类，下列关于集合类描述正确的是（\hphantom{~~~~~}）。
+\begin{tips}
+\dm{Object}是所有类的超类。
+
+\dm{final}修饰的类不可以被继承。
+\end{tips}
+
+\num （\textbf{多选题}）\dm{Java}中的集合类包括\dm{ArrayList}、\dm{LinkedList} 、\dm{HashMap}等类，下列关于集合类描述正确的是（~\textcolor[rgb]{1.00,0.00,0.00}{A}、\textcolor[rgb]{1.00,0.00,0.00}{B}、\textcolor[rgb]{1.00,0.00,0.00}{D}~）。
 
 A.\dm{ArrayList}和\dm{LinkedList}均实现了\dm{List}接口
 
@@ -1684,7 +1759,15 @@ C.添加和删除元素时，\dm{ArrayList}的表现更佳
 
 D.\dm{HashMap}实现\dm{Map}接口，它允许任何类型的键和值对象，并允许将\dm{null}用作键或值
 
-\num （\textbf{多选题}）关于\dm{equals}和\dm{hashCode}描述正确的是 （\hphantom{~~~~~}）。
+\begin{tips}
+\dm{ArrayList}和\dm{LinkedList}均实现了\dm{List}接口。
+
+\dm{ArrayList}在内存中基于数组实现的，为寻秩访问，访问速度快，但增加和删除元素慢；\dm{LinkedList}基于链表存放，为寻地址访问，访问速度慢，添加和删除元素略优。
+
+\dm{HashMap}实现\dm{Map}接口，允许任何类型的键和值对象，允许将\dm{null}用作键或值
+\end{tips}
+
+\num （\textbf{多选题}）关于\dm{equals}和\dm{hashCode}描述正确的是 （~\textcolor[rgb]{1.00,0.00,0.00}{A}、\textcolor[rgb]{1.00,0.00,0.00}{B}、\textcolor[rgb]{1.00,0.00,0.00}{C}~）。
 
 A.两个\dm{obj}，如果\dm{equals()}相等，\dm{hashCode()}一定相等（符合代码规范的情况下）
 
@@ -1698,10 +1781,32 @@ D.其他都不对
 解集\CJKunderdot{不能}包含重复的子集。你可以按\CJKunderdot{任意顺序}返回解集。
 \href{https://leetcode-cn.com/problems/subsets/} {OJ链接-子集}
 
+\begin{tips}
+1.对于互不相同元素组成的集合，其子集一共有$2^n$种。
+
+2.每种元素$a_i$只有两种状态，在子集中和不在子集中，用1表示在子集中，用0表示不在子集中。
+
+3.每个子集可以对应一个长度为n的0/1序列，第i位表示$a_i$是否在子集中。
+
+4.使用两层循环将每一个元素加入到对应的子集中。
+\end{tips}
+
 \begin{lstlisting}[title=子集]
 class Solution {
+    List<Integer> t = new ArrayList();
+    List<List<Integer>> ans = new ArrayList();
     public List<List<Integer>> subsets(int[] nums) {
-
+        int n = nums.length;
+        for(int mask = 0; mask < (1 << n);mask++){
+            t.clear();
+            for(int i = 0; i < n; i++){
+                if((mask & (1 << i)) != 0 ){
+                    t.add(nums[i]);
+                }
+            }
+            ans.add(new ArrayList<Integer>(t));
+        }
+        return ans;
     }
 }
 \end{lstlisting}
@@ -1713,14 +1818,47 @@ class Solution {
 \begin{lstlisting}[title=矩阵中最长递增路径]
 class Solution {
     public int longestIncreasingPath(int[][] matrix) {
+        int[][] visited = new int[matrix.length][matrix[0].length];
+        int max = 0;
+        for(int i = 0;i < matrix.length;i++){
+            for(int j = 0;j < matrix[0].length;j++){
+                if(visited[i][j] == 0){
+                    max = Math.max(max,dfs(i, j, matrix,visited));
+                 }
+            }
+        }
+        return max;
+    }
+    public int dfs(int i,int j, int[][] matrix,int[][] visited){
+        if((i < 0 || i >= visited.length) && (j < 0 || j >= visited[0].length)){
+            return 0;
+        }
+        if(visited[i][j] > 0){
+            return visited[i][j];
+        }
+        int max = 0;
+        if(i - 1 >= 0 && matrix[i - 1][j] < matrix[i][j]){
+            max = Math.max(max,dfs(i - 1, j, matrix,visited));
+        }
+        if(i + 1 < visited.length && matrix[i + 1][j] < matrix[i][j]){
+            max = Math.max(max,dfs(i + 1, j, matrix,visited));
+        }
+        if(j - 1 >= 0 && matrix[i][j - 1] < matrix[i][j]){
+            max = Math.max(max,dfs(i, j - 1, matrix,visited));
+        }
+        if(j + 1 < visited[0].length && matrix[i][j + 1] < matrix[i][j]){
+            max = Math.max(max,dfs(i, j + 1, matrix,visited));
+        }
 
+        visited[i][j] = max + 1;
+        return  visited[i][j];
     }
 }
 \end{lstlisting}
 
 \newpage
 \section{}
-\num （\textbf{多选题}）下面有关\dm{java}的\dm{instanceof}、 \dm{?}、\dm{&} 、\dm{&&}说法正确的有（\hphantom{~~~~~}）。
+\num （\textbf{多选题}）下面有关\dm{java}的\dm{instanceof}、 \dm{?}、\dm{&} 、\dm{&&}说法正确的有（\textcolor[rgb]{1.00,0.00,0.00}{A}、\textcolor[rgb]{1.00,0.00,0.00}{B}、\textcolor[rgb]{1.00,0.00,0.00}{C}、\textcolor[rgb]{1.00,0.00,0.00}{D}）。
 
 A.\dm{instanceof}可用来判断某个实例变量是否属于某种类的类型。
 
@@ -1730,7 +1868,7 @@ C.\dm{&}在逻辑运算中是非短路逻辑与，在位运算中是按位与
 
 D.\dm{&&}逻辑运算：逻辑与
 
-\num （\textbf{多选题}）下面哪个语句是创建数组的正确语句？（\hphantom{~~~~~}）。
+\num （\textbf{多选题}）下面哪个语句是创建数组的正确语句？（\textcolor[rgb]{1.00,0.00,0.00}{A}、\textcolor[rgb]{1.00,0.00,0.00}{B}、\textcolor[rgb]{1.00,0.00,0.00}{D}、\textcolor[rgb]{1.00,0.00,0.00}{E}）。
 
 A.\dm{float f[][] = new float[6][6]; }
 
@@ -1742,7 +1880,11 @@ D.\dm{float [][]f = new float[6][6];}
 
 E.\dm{float [][]f = new float[6][];}
 
-\num 下列类在多重\dm{catch}中同时出现时，哪一个异常类应最后一个列出（\hphantom{~~~~~}）。
+\begin{tips}
+多维数组行可以省略，列不能省略。等号右边的第一个\dm{[]}是列，第二个\dm{[]}是行。
+\end{tips}
+
+\num 下列类在多重\dm{catch}中同时出现时，哪一个异常类应最后一个列出（~~~\textcolor[rgb]{1.00,0.00,0.00}{C}~~~）。
 
 A.\dm{ArithmeticException }\hfill
 B.\dm{NumberFormatException}\hfill
@@ -1750,6 +1892,27 @@ C.\dm{Exception}\hfill
 D.\dm{ArrayIndexOutOfBoundException}
 
 \num 给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。\href{https://leetcode-cn.com/problems/binary-tree-right-side-view/} {OJ链接-二叉树的右视图}
+
+\begin{tips}
+层次遍历
+
+1.空树直接返回。
+
+2.对于一般二叉树，使用一个队列。将根节点推入队列。
+
+3.当队列不为空时，首先记录当前队列的大小\dm{size}
+
+4.对队列（当前层）进行遍历：
+\begin{itemize}
+  \item 取出队首元素\dm{node}。
+  \item 如果该元素\dm{node}的左孩子不为空，左孩子入队。
+  \item 如果该元素\dm{node}的右孩子不为空，右孩子入队。
+\end{itemize}
+
+5.当前层遍历完后，\dm{node}为当前层的最右侧元素，将该元素的值入结果。
+
+6.继续对下一层执行3-6步。
+\end{tips}
 
 \begin{lstlisting}[title=二叉树的右视图]
 /**
@@ -1769,7 +1932,27 @@ D.\dm{ArrayIndexOutOfBoundException}
  */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-
+        List<Integer> ans = new ArrayList<>();
+        if(root == null){
+            return ans;
+        }
+        TreeNode node = new TreeNode();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for (int i = 0; i < size; i++){
+                node = queue.poll();
+                if(node.left != null){
+                    queue.offer(node.left);
+                }
+                if(node.right != null){
+                    queue.offer(node.right);
+                }
+            }
+            ans.add(node.val);
+        }
+        return ans;
     }
 }
 \end{lstlisting}
@@ -1778,12 +1961,12 @@ class Solution {
 
 我们有一系列公交路线。每一条路线\dm{routes[i]}上都有一辆公交车在上面循环行驶。例如，有一条路线\\ \dm{routes[0] = [1, 5, 7]}，表示第一辆 (下标为0) 公交车会一直按照 $1\rightarrow 5\rightarrow 7\rightarrow 1\rightarrow 5\rightarrow 7\rightarrow 1\rightarrow \ldots $的车站路线行驶。
 
-假设我们从$S$车站开始（初始时不在公交车上），要去往$T$站。 期间仅可乘坐公交车，求出最少乘坐的公交车数量。返回$1-$表示不可能到达终点车站。
+假设我们从$S$车站开始（初始时不在公交车上），要去往$T$站。 期间仅可乘坐公交车，求出最少乘坐的公交车数量。返回$-1$表示不可能到达终点车站。
 
 \begin{lstlisting}[title=公交路线]
 class Solution {
     public int numBusesToDestination(int[][] routes, int S, int T) {
-
+        //不会做，解析也没看懂
     }
 }
 \end{lstlisting}
@@ -1804,10 +1987,43 @@ class Solution {
 \item $s$可能为空，且只包含从 \dm{a-z}的小写字母。
 \item $s$可能为空，且只包含从 \dm{a-z}的小写字母，以及字符\dm{?}和\dm{*}。
 \end{itemize}
+
+\begin{tips}
+1.使用动态规划算法
+
+2.\dm{match[i][j]}表示当前\dm{p}的前\dm{i}个字符和\dm{s}的前\dm{j}个字符是否匹配
+
+3.状态转移：
+\begin{itemize}
+  \item 如果\dm{p[i - 1] == s[j - 1]}或\dm{p[i - 1] == '?'}，表明当前字符匹配，\dm{match[i][j]}可以从\dm{match[i - 1][j - 1]}转移而来。
+  \item 如果\dm{p[i - 1] == '*'}，这个位置可以匹配0到若干个字符，\dm{match[i][j]}从其前一个状态转移来。其前一个状态包括\dm{match[i - 1][j]}（表示模式串的前i-1个字符与字符串的前j个字符的匹配状态），\dm{match[i][j - 1]}（表示模式串的前i个字符与字符串的前j-1个字符的匹配状态）
+\end{itemize}
+
+4.初始条件：\dm{match[0][0]}表示两个空串匹配。
+\\ 若模式串以若干个*开头，这些*可以匹配空串。
+\end{tips}
+
 \begin{lstlisting}[title=通配符匹配]
 class Solution {
     public boolean isMatch(String s, String p) {
-
+        boolean[][] match = new boolean[p.length() + 1][s.length() + 1];
+        match[0][0] = true;
+        for(int i = 1; i <= p.length();i++){
+            if(p.charAt(i - 1) != '*'){
+                break;
+            }
+            match[i][0] = true;
+        }
+        for (int i = 1; i <= p.length(); i++) {
+            for (int j = 1; j <= s.length(); j++) {
+                if (s.charAt(j - 1) == p.charAt(i - 1) || p.charAt(i - 1) == '?'){
+                    match[i][j] = match[i - 1][j - 1];
+                }else if (p.charAt(i - 1) == '*'){
+                    match[i][j] = match[i-1][j] || match[i][j-1];
+                }
+            }
+        }
+        return match[p.length()][s.length()];
     }
 }
 \end{lstlisting}
